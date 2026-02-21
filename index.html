@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SmileCare Dental Clinic</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+h1, h2, h3, p {
+  margin-top: 0;
+}
+:root {
+  --primary: #0d6efd;
+  --light: #f8f9fa;
+  --dark: #1f2937;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: var(--light);
+  color: var(--dark);
+}
+
+/* Navbar */
+nav {
+  background: white;
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+nav h2 {
+  color: var(--primary);
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--dark);
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+/* Hero */
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 40px 30px;
+  align-items: center;
+  background: white;
+.hero-text h1 {
+  margin-bottom: 15px;
+}
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-text h1 {
+  font-size: 40px;
+}
+
+.hero-text p {
+  font-size: 18px;
+  margin: 20px 0;
+}
+
+.hero-text button {
+  background: var(--primary);
+  color: white;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.hero-img {
+  flex: 1;
+  text-align: center;
+}
+
+.hero-img img {
+  width: 90%;
+  max-width: 420px;
+}
+
+/* Services */
+.services {
+  padding: 60px 30px;
+  text-align: center;
+}
+
+.services h2 {
+  margin-bottom: 30px;
+}
+
+.service-box {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+}
+
+/* Trust */
+.trust {
+  background: white;
+  padding: 50px 30px;
+  text-align: center;
+}
+
+.trust span {
+  font-size: 40px;
+  color: var(--primary);
+}
+
+/* Chatbot */
+#chatbot {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 330px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.2);
+  display: none;
+  flex-direction: column;
+}
+
+#chat-header {
+  background: var(--primary);
+  color: white;
+  padding: 14px;
+  font-weight: 600;
+  border-radius: 15px 15px 0 0;
+}
+
+#chat-body {
+  padding: 12px;
+  height: 280px;
+  overflow-y: auto;
+  font-size: 14px;
+}
+
+.bot, .user {
+  margin-bottom: 10px;
+}
+
+.user {
+  text-align: right;
+  color: var(--primary);
+}
+
+#chat-input {
+  display: flex;
+  border-top: 1px solid #ddd;
+}
+
+#chat-input input {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  outline: none;
+}
+
+#chat-input button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <h2>SmileCare</h2>
+  <div>
+    <a href="#">Home</a>
+    <a href="#">Services</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <h1>Trusted Dental Care for Your Smile</h1>
+    <p>Instant replies, easy booking, and professional dental treatment.</p>
+    <button onclick="openChat()">Book Appointment</button>
+  </div>
+  <div class="hero-img">
+    <img src="C:\Users\b5359\OneDrive\Desktop\New folder (3)\1.png" alt="Dental Clinic">
+  </div>
+</section>
+
+<section class="services">
+  <h2>Our Treatments</h2>
+  <div class="service-box">
+    <div class="card">🦷 Tooth Pain</div>
+    <div class="card">😁 Teeth Cleaning</div>
+    <div class="card">🪥 Braces</div>
+    <div class="card">🦷 Root Canal</div>
+  </div>
+</section>
+
+<section class="trust">
+  <span>5000+</span>
+  <p>Happy Patients & Modern Technology</p>
+</section>
+
+<!-- Chatbot -->
+<div id="chatbot">
+  <div id="chat-header">SmileCare AI 🤖</div>
+  <div id="chat-body"></div>
+  <div id="chat-input">
+    <input id="userInput" placeholder="Type your message..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+const chatBody = document.getElementById("chat-body");
+
+function openChat() {
+  document.getElementById("chatbot").style.display = "flex";
+  addBot("Hello 👋 I’m SmileCare Assistant. How can I help you?");
+  addBot("1️⃣ Book appointment\n2️⃣ Clinic timings\n3️⃣ Treatments");
+}
+
+function addBot(text) {
+  let d = document.createElement("div");
+  d.className = "bot";
+  d.innerText = text;
+  chatBody.appendChild(d);
+}
+
+function addUser(text) {
+  let d = document.createElement("div");
+  d.className = "user";
+  d.innerText = text;
+  chatBody.appendChild(d);
+}
+
+function sendMessage() {
+  let input = document.getElementById("userInput");
+  let msg = input.value.trim();
+  if(!msg) return;
+  addUser(msg);
+  input.value = "";
+  setTimeout(() => addBot("Thanks! Our team will contact you shortly 📞"), 600);
+}
+</script>
+
+</body>
+</html>
